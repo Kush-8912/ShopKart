@@ -2,7 +2,7 @@
 
 A full-stack e-commerce web app: browse products, keep a wishlist, manage a cart, pay with Razorpay (test mode) and track your orders.
 
-**Live demo:** _coming soon_
+**Live demo:** https://shop-kart-two-zeta.vercel.app &nbsp;·&nbsp; **API:** https://shopkart-1t5e.onrender.com
 
 ## Features
 
