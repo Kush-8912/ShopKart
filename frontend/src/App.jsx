@@ -11,10 +11,12 @@ import Orders from './pages/Orders.jsx'
 import OrderDetails from './pages/OrderDetails.jsx'
 import { ProtectedRoute, PublicRoute } from './components/ProtectedRoute.jsx'
 import { AuthLayout } from './components/AuthLayout.jsx'
+import CustomCursor from './components/CustomCursor.jsx'
 
 function App() {
   return (
     <BrowserRouter>
+      <CustomCursor />
       <Routes>
         <Route path="/" element={<Navigate to="/home" replace />} />
 

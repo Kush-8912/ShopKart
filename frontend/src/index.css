@@ -36,3 +36,18 @@ body {
     animation: none;
   }
 }
+
+/* Set by CustomCursor on mouse/trackpad devices: hide the system cursor, except in text
+   fields, where the I-beam is more useful than a custom one */
+@media (hover: hover) and (pointer: fine) {
+  html.has-custom-cursor,
+  html.has-custom-cursor * {
+    cursor: none !important;
+  }
+
+  html.has-custom-cursor input:not([type="checkbox"], [type="radio"], [type="submit"], [type="button"]),
+  html.has-custom-cursor textarea,
+  html.has-custom-cursor [contenteditable="true"] {
+    cursor: text !important;
+  }
+}
