@@ -3,7 +3,7 @@ import { Link, useOutletContext } from 'react-router-dom'
 import { getProducts } from '../services/product.service.js'
 import { useCart } from '../context/CartContext.jsx'
 import { usePageTitle } from '../hooks/usePageTitle.js'
-import { CATEGORIES } from '../utils/catalog.js'
+import { CATEGORIES, imageFit } from '../utils/catalog.js'
 import { formatPrice } from '../utils/format.js'
 import Navbar from '../components/Navbar.jsx'
 import { ArrowRightIcon, CardIcon, CartIcon, GridIcon, HeartIcon, PackageIcon, TruckIcon, UserIcon } from '../components/Icons.jsx'
@@ -130,7 +130,7 @@ function Home() {
                   className="group overflow-hidden bg-zinc-900/50 border border-zinc-800/80 rounded-2xl hover:border-zinc-700 transition-colors"
                 >
                   <div className="aspect-[4/3] overflow-hidden bg-zinc-900">
-                    <img src={product.image} alt={product.name} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition duration-300" />
+                    <img src={product.image} alt={product.name} loading="lazy" className={`w-full h-full ${imageFit(product)} group-hover:scale-105 transition duration-300`} />
                   </div>
                   <div className="p-3 space-y-0.5">
                     <p className="text-sm font-medium truncate">{product.name}</p>

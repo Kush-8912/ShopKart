@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { formatPrice, getStockStatus } from '../utils/format.js'
+import { imageFit } from '../utils/catalog.js'
 import WishlistButton from './WishlistButton.jsx'
 import AddToCartButton from './AddToCartButton.jsx'
 
@@ -13,7 +14,7 @@ function ProductCard({ product, inWishlist = false }) {
           src={product.image}
           alt={product.name}
           loading="lazy"
-          className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+          className={`w-full h-full ${imageFit(product)} group-hover:scale-105 transition duration-300`}
         />
         <span className="absolute top-3 left-3 px-2.5 py-0.5 text-xs text-zinc-200 bg-zinc-950/70 backdrop-blur border border-zinc-700/60 rounded-full">
           {product.category}

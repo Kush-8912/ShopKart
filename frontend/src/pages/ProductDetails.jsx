@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { getProductById } from '../services/product.service.js'
 import { formatPrice, getStockStatus } from '../utils/format.js'
+import { imageFit } from '../utils/catalog.js'
 import { usePageTitle } from '../hooks/usePageTitle.js'
 import Navbar from '../components/Navbar.jsx'
 import AddToCartButton from '../components/AddToCartButton.jsx'
@@ -62,7 +63,7 @@ function ProductDetails() {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
         <div className="aspect-[4/3] bg-zinc-900 border border-zinc-800/80 rounded-2xl overflow-hidden">
-          <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
+          <img src={product.image} alt={product.name} className={`w-full h-full ${imageFit(product)}`} />
         </div>
 
         <div className="flex flex-col gap-4">

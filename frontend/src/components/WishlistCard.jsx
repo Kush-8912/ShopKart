@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { formatPrice, getStockStatus } from '../utils/format.js'
+import { imageFit } from '../utils/catalog.js'
 
 function WishlistCard({ product, onRemove }) {
   const stockStatus = getStockStatus(product.stock)
@@ -27,7 +28,7 @@ function WishlistCard({ product, onRemove }) {
           src={product.image}
           alt={product.name}
           loading="lazy"
-          className="w-full h-full object-cover"
+          className={`w-full h-full ${imageFit(product)}`}
         />
       </div>
 

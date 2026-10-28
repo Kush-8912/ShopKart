@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useCart } from '../context/CartContext.jsx'
 import { getCartErrorMessage } from '../services/cart.service.js'
 import { formatPrice } from '../utils/format.js'
+import { imageFit } from '../utils/catalog.js'
 
 const stepButtonClass =
   'w-8 h-8 flex items-center justify-center rounded-lg border border-zinc-700 text-zinc-200 hover:border-zinc-500 hover:bg-zinc-800/60 disabled:opacity-40 disabled:cursor-not-allowed transition-colors'
@@ -38,7 +39,7 @@ function CartItem({ item }) {
   return (
     <div className={`flex gap-4 p-4 bg-zinc-900/50 border border-zinc-800/80 rounded-2xl ${pending ? 'opacity-70' : ''}`}>
       <Link to={`/products/${product._id}`} className="shrink-0 w-24 h-24 sm:w-28 sm:h-28 bg-zinc-900 rounded-xl overflow-hidden">
-        <img src={product.image} alt={product.name} loading="lazy" className="w-full h-full object-cover" />
+        <img src={product.image} alt={product.name} loading="lazy" className={`w-full h-full ${imageFit(product)}`} />
       </Link>
 
       <div className="flex flex-col flex-1 min-w-0 gap-1">
