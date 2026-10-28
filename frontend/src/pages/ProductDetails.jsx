@@ -83,7 +83,7 @@ function ProductDetails() {
           </p>
 
           <div className="mt-2 sm:self-start sm:min-w-64">
-            <AddToCartButton product={product} className="px-8 py-3" />
+            <AddToCartButton product={product} size="lg" />
           </div>
         </div>
       </div>

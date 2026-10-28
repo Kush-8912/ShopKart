@@ -121,3 +121,26 @@ export const EyeOffIcon = (props) => (
     <path d="M9.9 9.9a3 3 0 0 0 4.2 4.2" />
   </Icon>
 )
+
+export const PlusIcon = (props) => (
+  <Icon {...props}>
+    <path d="M12 5v14" />
+    <path d="M5 12h14" />
+  </Icon>
+)
+
+export const MinusIcon = (props) => (
+  <Icon {...props}>
+    <path d="M5 12h14" />
+  </Icon>
+)
+
+export const TrashIcon = (props) => (
+  <Icon {...props}>
+    <path d="M4 7h16" />
+    <path d="M10 11v6" />
+    <path d="M14 11v6" />
+    <path d="M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12" />
+    <path d="M9 7V4h6v3" />
+  </Icon>
+)
