@@ -3,7 +3,6 @@ import { useSearchParams } from 'react-router-dom'
 import { getProducts } from '../services/product.service.js'
 import { getWishlist } from '../services/wishlist.service.js'
 import { usePageTitle } from '../hooks/usePageTitle.js'
-import Navbar from '../components/Navbar.jsx'
 import SearchBar from '../components/SearchBar.jsx'
 import ProductCard from '../components/ProductCard.jsx'
 
@@ -106,9 +105,7 @@ function Products() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100">
-      <Navbar />
-
+    <>
       <div className="max-w-7xl mx-auto px-4 py-10 space-y-8">
         <div className="space-y-1">
           <h1 className="text-2xl font-semibold tracking-tight">{category || 'All products'}</h1>
@@ -130,7 +127,7 @@ function Products() {
 
         {renderContent()}
       </div>
-    </div>
+    </>
   )
 }
 

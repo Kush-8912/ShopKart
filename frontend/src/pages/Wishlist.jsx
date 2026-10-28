@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { getWishlist, removeFromWishlist } from '../services/wishlist.service.js'
 import { usePageTitle } from '../hooks/usePageTitle.js'
-import Navbar from '../components/Navbar.jsx'
 import WishlistCard from '../components/WishlistCard.jsx'
 
 function Wishlist() {
@@ -96,9 +95,7 @@ function Wishlist() {
   const showCount = !loading && !error && wishlist.length > 0
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100">
-      <Navbar />
-
+    <>
       <div className="max-w-7xl mx-auto px-4 py-10 space-y-8">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div className="space-y-1">
@@ -118,7 +115,7 @@ function Wishlist() {
 
         {renderContent()}
       </div>
-    </div>
+    </>
   )
 }
 

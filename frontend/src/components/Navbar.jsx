@@ -1,15 +1,18 @@
-import { useEffect, useState } from 'react'
-import { Link, NavLink, useNavigate, useOutletContext } from 'react-router-dom'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { api } from '../services/api.js'
 import { getWishlist, WISHLIST_CHANGED } from '../services/wishlist.service.js'
 import { useCart } from '../context/CartContext.jsx'
 import Logo from './Logo.jsx'
 import { CartIcon, GridIcon, HeartIcon, HomeIcon, LogoutIcon, PackageIcon } from './Icons.jsx'
 
-const linkClass = ({ isActive }) =>
-  `shrink-0 inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm transition-colors ${
-    isActive ? 'bg-zinc-800 text-zinc-100 font-medium' : 'text-zinc-400 hover:text-zinc-100 hover:bg-zinc-900'
-  }`
+const LINKS = [
+  { to: '/home', label: 'Home', icon: HomeIcon },
+  { to: '/products', label: 'Products', icon: GridIcon },
+  { to: '/wishlist', label: 'Wishlist', icon: HeartIcon },
+  { to: '/cart', label: 'Cart', icon: CartIcon },
+  { to: '/orders', label: 'Orders', icon: PackageIcon }
+]
 
 function CountBadge({ count }) {
   if (!count) return null
@@ -20,13 +23,43 @@ function CountBadge({ count }) {
   )
 }
 
-function Navbar() {
+// Rendered once by ProtectedRoute, so it stays mounted while the user moves between pages
+function Navbar({ customer }) {
   const navigate = useNavigate()
-  // Every page with a Navbar sits under ProtectedRoute, which provides the customer
-  const { customer } = useOutletContext() || {}
+  const { pathname } = useLocation()
   const [wishlistCount, setWishlistCount] = useState(null)
   // Cart count is derived from the shared cart state: no separate fetch here
   const { totalUnits, loading: cartLoading, error: cartError } = useCart()
+
+  // /products/123 still counts as "Products"; /order-success/… highlights nothing
+  const activeTo = LINKS.find(({ to }) => pathname === to || pathname.startsWith(`${to}/`))?.to
+
+  // The highlight is one element that moves to the active link, so it slides between them
+  const linksRef = useRef(null)
+  const linkRefs = useRef({})
+  const [pill, setPill] = useState(null) // { left, top, width, height } of the active link
+
+  useLayoutEffect(() => {
+    const measure = () => {
+      const el = activeTo && linkRefs.current[activeTo]
+      setPill((prev) => {
+        if (!el) return prev && { ...prev, hidden: true }
+        return { left: el.offsetLeft, top: el.offsetTop, width: el.offsetWidth, height: el.offsetHeight, animate: Boolean(prev) }
+      })
+    }
+
+    measure()
+    // Link widths change when a count badge appears or the window resizes
+    const observer = new ResizeObserver(measure)
+    if (linksRef.current) observer.observe(linksRef.current)
+    Object.values(linkRefs.current).forEach((el) => el && observer.observe(el))
+    return () => observer.disconnect()
+  }, [activeTo])
+
+  // On phones the links scroll sideways: keep the active one in view
+  useEffect(() => {
+    linkRefs.current[activeTo]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' })
+  }, [activeTo])
 
   // Count always comes from the backend; re-fetch whenever the wishlist changes
   useEffect(() => {
@@ -57,6 +90,10 @@ function Navbar() {
     }
   }
 
+  const counts = {
+    '/wishlist': wishlistCount,
+    '/cart': !cartLoading && !cartError ? totalUnits : 0
+  }
   const firstName = customer?.fullName?.split(' ')[0]
 
   return (
@@ -67,22 +104,29 @@ function Navbar() {
         </Link>
 
         {/* On phones the links drop to their own row and scroll sideways */}
-        <div className="order-last w-full md:order-none md:w-auto flex items-center gap-1 overflow-x-auto -mx-1 px-1">
-          <NavLink to="/home" className={linkClass}>
-            <HomeIcon className="w-4 h-4" /> Home
-          </NavLink>
-          <NavLink to="/products" className={linkClass}>
-            <GridIcon className="w-4 h-4" /> Products
-          </NavLink>
-          <NavLink to="/wishlist" className={linkClass}>
-            <HeartIcon className="w-4 h-4" /> Wishlist <CountBadge count={wishlistCount} />
-          </NavLink>
-          <NavLink to="/cart" className={linkClass}>
-            <CartIcon className="w-4 h-4" /> Cart <CountBadge count={!cartLoading && !cartError ? totalUnits : 0} />
-          </NavLink>
-          <NavLink to="/orders" className={linkClass}>
-            <PackageIcon className="w-4 h-4" /> Orders
-          </NavLink>
+        <div ref={linksRef} className="relative order-last w-full md:order-none md:w-auto flex items-center gap-1 overflow-x-auto -mx-1 px-1">
+          {pill && (
+            <span
+              aria-hidden="true"
+              className={`absolute rounded-lg bg-zinc-800 ease-out motion-reduce:transition-none ${
+                pill.animate ? 'transition-all duration-300' : ''
+              } ${pill.hidden ? 'opacity-0' : 'opacity-100'}`}
+              style={{ left: pill.left, top: pill.top, width: pill.width, height: pill.height }}
+            />
+          )}
+          {LINKS.map(({ to, label, icon: LinkIcon }) => (
+            <Link
+              key={to}
+              to={to}
+              ref={(el) => { linkRefs.current[to] = el }}
+              aria-current={to === activeTo ? 'page' : undefined}
+              className={`relative shrink-0 inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm transition-colors duration-300 ${
+                to === activeTo ? 'text-zinc-100 font-medium' : 'text-zinc-400 hover:text-zinc-100'
+              }`}
+            >
+              <LinkIcon className="w-4 h-4" /> {label} <CountBadge count={counts[to]} />
+            </Link>
+          ))}
         </div>
 
         <div className="flex items-center gap-3">

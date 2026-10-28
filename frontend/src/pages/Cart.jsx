@@ -2,7 +2,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useCart } from '../context/CartContext.jsx'
 import { formatPrice } from '../utils/format.js'
 import { usePageTitle } from '../hooks/usePageTitle.js'
-import Navbar from '../components/Navbar.jsx'
 import CartItem from '../components/CartItem.jsx'
 
 function Cart() {
@@ -99,9 +98,7 @@ function Cart() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100">
-      <Navbar />
-
+    <>
       <div className="max-w-6xl mx-auto px-4 py-10 space-y-8">
         <div className="space-y-1">
           <h1 className="text-2xl font-semibold tracking-tight">My Cart</h1>
@@ -114,7 +111,7 @@ function Cart() {
 
         {renderContent()}
       </div>
-    </div>
+    </>
   )
 }
 

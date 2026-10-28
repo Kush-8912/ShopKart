@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { getOrders } from '../services/order.service.js'
 import { usePageTitle } from '../hooks/usePageTitle.js'
-import Navbar from '../components/Navbar.jsx'
 import OrderCard from '../components/OrderCard.jsx'
 
 function Orders() {
@@ -84,9 +83,7 @@ function Orders() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100">
-      <Navbar />
-
+    <>
       <div className="max-w-3xl mx-auto px-4 py-10 space-y-8">
         <div className="space-y-1">
           <h1 className="text-2xl font-semibold tracking-tight">My Orders</h1>
@@ -99,7 +96,7 @@ function Orders() {
 
         {renderContent()}
       </div>
-    </div>
+    </>
   )
 }
 

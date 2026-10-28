@@ -6,7 +6,6 @@ import { loadRazorpayScript } from '../utils/razorpay.js'
 import { validateShipping, SHIPPING_FIELDS } from '../utils/validateShipping.js'
 import { formatPrice } from '../utils/format.js'
 import { usePageTitle } from '../hooks/usePageTitle.js'
-import Navbar from '../components/Navbar.jsx'
 import CheckoutForm from '../components/CheckoutForm.jsx'
 import OrderSummary from '../components/OrderSummary.jsx'
 
@@ -241,14 +240,12 @@ function Checkout() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100">
-      <Navbar />
-
+    <>
       <div className="max-w-6xl mx-auto px-4 py-10 space-y-8">
         <h1 className="text-2xl font-semibold tracking-tight">Checkout</h1>
         {renderContent()}
       </div>
-    </div>
+    </>
   )
 }
 

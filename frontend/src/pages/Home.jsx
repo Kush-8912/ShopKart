@@ -5,7 +5,6 @@ import { useCart } from '../context/CartContext.jsx'
 import { usePageTitle } from '../hooks/usePageTitle.js'
 import { CATEGORIES, imageFit } from '../utils/catalog.js'
 import { formatPrice } from '../utils/format.js'
-import Navbar from '../components/Navbar.jsx'
 import { ArrowRightIcon, CardIcon, CartIcon, GridIcon, HeartIcon, PackageIcon, TruckIcon, UserIcon } from '../components/Icons.jsx'
 
 const ORDER_STEPS = [
@@ -52,9 +51,7 @@ function Home() {
   ]
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100">
-      <Navbar />
-
+    <>
       <div className="max-w-7xl mx-auto px-4 py-10 space-y-12">
         <section className="relative overflow-hidden p-8 sm:p-10 bg-zinc-900/60 border border-zinc-800/80 rounded-3xl">
           <div aria-hidden="true" className="pointer-events-none absolute -top-32 -right-20 w-96 h-96 rounded-full bg-brand-500/20 blur-3xl" />
@@ -185,7 +182,7 @@ function Home() {
           </section>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 

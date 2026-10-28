@@ -3,7 +3,6 @@ import { Link, useParams } from 'react-router-dom'
 import { getOrderById, advanceOrderStatus } from '../services/order.service.js'
 import { formatDateTime, formatPrice, shortOrderId } from '../utils/format.js'
 import { usePageTitle } from '../hooks/usePageTitle.js'
-import Navbar from '../components/Navbar.jsx'
 import OrderSummary from '../components/OrderSummary.jsx'
 import { StatusBadge, StatusTracker } from '../components/OrderStatus.jsx'
 
@@ -154,9 +153,7 @@ function OrderDetails({ success = false }) {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100">
-      <Navbar />
-
+    <>
       <div className="max-w-5xl mx-auto px-4 py-10 space-y-6">
         {!success && (
           <Link to="/orders" className="inline-block text-sm text-zinc-400 hover:text-zinc-100 transition-colors">
@@ -165,7 +162,7 @@ function OrderDetails({ success = false }) {
         )}
         {renderContent()}
       </div>
-    </div>
+    </>
   )
 }
 

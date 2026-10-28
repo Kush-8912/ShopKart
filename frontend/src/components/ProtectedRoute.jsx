@@ -3,6 +3,7 @@ import { Navigate, Outlet, useLocation } from 'react-router-dom'
 import { api } from '../services/api.js'
 import { CartProvider } from '../context/CartContext.jsx'
 import Logo from './Logo.jsx'
+import Navbar from './Navbar.jsx'
 
 function Loader() {
   return (
@@ -44,8 +45,28 @@ export function ProtectedRoute() {
   // once after login, stays mounted while navigating, and is cleared on logout.
   return (
     <CartProvider>
-      <Outlet context={{ customer }} />
+      <AppShell customer={customer} />
     </CartProvider>
+  )
+}
+
+// One Navbar for every logged-in page: it stays mounted while navigating, so its
+// highlight can slide between links. Only the page below it changes (and fades in).
+function AppShell({ customer }) {
+  const { pathname } = useLocation()
+
+  // A new page starts at the top, not wherever the previous one was scrolled to
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
+
+  return (
+    <div className="min-h-screen bg-zinc-950 text-zinc-100">
+      <Navbar customer={customer} />
+      <div key={pathname} className="animate-fade-in">
+        <Outlet context={{ customer }} />
+      </div>
+    </div>
   )
 }
 

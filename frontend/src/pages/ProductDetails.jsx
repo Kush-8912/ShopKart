@@ -4,7 +4,6 @@ import { getProductById } from '../services/product.service.js'
 import { formatPrice, getStockStatus } from '../utils/format.js'
 import { imageFit } from '../utils/catalog.js'
 import { usePageTitle } from '../hooks/usePageTitle.js'
-import Navbar from '../components/Navbar.jsx'
 import AddToCartButton from '../components/AddToCartButton.jsx'
 
 function ProductDetails() {
@@ -92,9 +91,7 @@ function ProductDetails() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100">
-      <Navbar />
-
+    <>
       <div className="max-w-6xl mx-auto px-4 py-10 space-y-6">
         <Link to="/products" className="inline-block text-sm text-zinc-400 hover:text-zinc-100 transition-colors">
           ← Back to products
@@ -102,7 +99,7 @@ function ProductDetails() {
 
         {renderContent()}
       </div>
-    </div>
+    </>
   )
 }
 
