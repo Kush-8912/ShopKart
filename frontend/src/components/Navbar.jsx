@@ -110,7 +110,7 @@ function Navbar({ customer }) {
         </Link>
 
         {/* On phones the links drop to their own row and scroll sideways */}
-        <div ref={linksRef} className="relative order-last w-full md:order-none md:w-auto flex items-center gap-1 overflow-x-auto -mx-1 px-1">
+        <div ref={linksRef} className="relative order-last w-full lg:order-none lg:w-auto flex items-center gap-1 overflow-x-auto -mx-1 px-1">
           {pill && (
             <span
               aria-hidden="true"

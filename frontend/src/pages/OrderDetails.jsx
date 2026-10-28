@@ -73,6 +73,8 @@ function OrderDetails({ success = false }) {
     }
 
     const paid = order.paymentStatus === 'PAID'
+    // The success banner is the page heading after checkout; otherwise the order title is
+    const OrderTitle = success && paid ? 'h2' : 'h1'
     const { shippingAddress: address } = order
     const canAdvance = import.meta.env.DEV && paid && order.status !== 'DELIVERED'
 
@@ -91,7 +93,7 @@ function OrderDetails({ success = false }) {
             <section className="p-5 bg-zinc-900/50 border border-zinc-800/80 rounded-2xl space-y-4">
               <div className="flex flex-wrap items-start justify-between gap-2">
                 <div>
-                  <h2 className="text-lg font-semibold">Order {shortOrderId(order._id)}</h2>
+                  <OrderTitle className="text-lg font-semibold">Order {shortOrderId(order._id)}</OrderTitle>
                   <p className="text-xs text-zinc-400">Placed {formatDateTime(order.createdAt)}</p>
                 </div>
                 <StatusBadge status={order.status} />
