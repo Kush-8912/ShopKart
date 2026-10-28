@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { getOrderById, advanceOrderStatus } from '../services/order.service.js'
 import { formatDateTime, formatPrice, shortOrderId } from '../utils/format.js'
+import { usePageTitle } from '../hooks/usePageTitle.js'
 import Navbar from '../components/Navbar.jsx'
 import OrderSummary from '../components/OrderSummary.jsx'
 import { StatusBadge, StatusTracker } from '../components/OrderStatus.jsx'
@@ -13,6 +14,7 @@ const secondaryButton =
 
 // Used for both /orders/:id and /order-success/:id (success adds the confirmation banner)
 function OrderDetails({ success = false }) {
+  usePageTitle(success ? 'Order placed' : 'Order details')
   const { id } = useParams()
   const [order, setOrder] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -137,7 +139,7 @@ function OrderDetails({ success = false }) {
             </section>
           </div>
 
-          <div className="lg:col-span-2 lg:sticky lg:top-6">
+          <div className="lg:col-span-2 lg:sticky lg:top-24">
             {/* Snapshot prices: what was paid, even if the product price changes later */}
             <OrderSummary title="Items" items={order.items} total={order.totalAmount} />
           </div>

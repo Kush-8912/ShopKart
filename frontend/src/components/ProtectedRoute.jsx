@@ -2,11 +2,14 @@ import { useEffect, useState } from 'react'
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
 import { api } from '../services/api.js'
 import { CartProvider } from '../context/CartContext.jsx'
+import Logo from './Logo.jsx'
 
 function Loader() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-zinc-950 text-zinc-100">
-      <p className="text-sm text-zinc-400">Loading...</p>
+    <div className="min-h-screen flex flex-col items-center justify-center gap-4 bg-zinc-950 text-zinc-100">
+      <Logo />
+      <span className="w-6 h-6 border-2 border-zinc-700 border-t-brand-400 rounded-full animate-spin" />
+      <p className="text-sm text-zinc-400">Checking your account...</p>
     </div>
   )
 }

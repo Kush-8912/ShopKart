@@ -5,6 +5,7 @@ import { createPaymentOrder, verifyPayment } from '../services/order.service.js'
 import { loadRazorpayScript } from '../utils/razorpay.js'
 import { validateShipping, SHIPPING_FIELDS } from '../utils/validateShipping.js'
 import { formatPrice } from '../utils/format.js'
+import { usePageTitle } from '../hooks/usePageTitle.js'
 import Navbar from '../components/Navbar.jsx'
 import CheckoutForm from '../components/CheckoutForm.jsx'
 import OrderSummary from '../components/OrderSummary.jsx'
@@ -18,6 +19,7 @@ const BUTTON_LABELS = {
 }
 
 function Checkout() {
+  usePageTitle('Checkout')
   const navigate = useNavigate()
   const { customer } = useOutletContext()
   const { cartItems, loading, error: cartError, subtotal, refreshCart, clearCart } = useCart()
@@ -198,7 +200,7 @@ function Checkout() {
           <CheckoutForm form={form} errors={fieldErrors} disabled={busy} onChange={handleChange} />
         </section>
 
-        <div className="lg:col-span-2 lg:sticky lg:top-6">
+        <div className="lg:col-span-2 lg:sticky lg:top-24">
           <OrderSummary
             items={summaryItems}
             total={subtotal}

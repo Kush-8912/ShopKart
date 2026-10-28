@@ -1,10 +1,12 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useCart } from '../context/CartContext.jsx'
 import { formatPrice } from '../utils/format.js'
+import { usePageTitle } from '../hooks/usePageTitle.js'
 import Navbar from '../components/Navbar.jsx'
 import CartItem from '../components/CartItem.jsx'
 
 function Cart() {
+  usePageTitle('Cart')
   // Same shared state the Navbar reads, so the count and this page always agree
   const { cartItems, loading, error, totalUnits, subtotal, refreshCart } = useCart()
   const navigate = useNavigate()
@@ -61,7 +63,7 @@ function Cart() {
           ))}
         </div>
 
-        <aside className="p-5 bg-zinc-900/50 border border-zinc-800/80 rounded-2xl space-y-4 lg:sticky lg:top-6">
+        <aside className="p-5 bg-zinc-900/50 border border-zinc-800/80 rounded-2xl space-y-4 lg:sticky lg:top-24">
           <h2 className="text-lg font-semibold">Order Summary</h2>
 
           <dl className="space-y-2 text-sm">

@@ -7,19 +7,21 @@ function ProductCard({ product, inWishlist = false }) {
   const stockStatus = getStockStatus(product.stock)
 
   return (
-    <div className="flex flex-col bg-zinc-900/50 border border-zinc-800/80 rounded-2xl overflow-hidden hover:border-zinc-700 transition-colors">
-      <div className="aspect-[4/3] bg-zinc-900">
+    <div className="group flex flex-col bg-zinc-900/50 border border-zinc-800/80 rounded-2xl overflow-hidden hover:border-zinc-700 transition-colors">
+      <Link to={`/products/${product._id}`} className="relative aspect-[4/3] overflow-hidden bg-zinc-900">
         <img
           src={product.image}
           alt={product.name}
           loading="lazy"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
         />
-      </div>
+        <span className="absolute top-3 left-3 px-2.5 py-0.5 text-xs text-zinc-200 bg-zinc-950/70 backdrop-blur border border-zinc-700/60 rounded-full">
+          {product.category}
+        </span>
+      </Link>
 
       <div className="flex flex-col flex-1 p-4 gap-1">
         <h2 className="font-medium text-zinc-100 leading-snug">{product.name}</h2>
-        <p className="text-xs text-zinc-400">{product.category}</p>
         <p className="text-lg font-semibold text-zinc-100 mt-1">{formatPrice(product.price)}</p>
         <p className={`text-xs ${stockStatus.className}`}>{stockStatus.label}</p>
 

@@ -10,6 +10,7 @@ import Checkout from './pages/Checkout.jsx'
 import Orders from './pages/Orders.jsx'
 import OrderDetails from './pages/OrderDetails.jsx'
 import { ProtectedRoute, PublicRoute } from './components/ProtectedRoute.jsx'
+import { AuthLayout } from './components/AuthLayout.jsx'
 
 function App() {
   return (
@@ -18,8 +19,10 @@ function App() {
         <Route path="/" element={<Navigate to="/home" replace />} />
 
         <Route element={<PublicRoute />}>
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
+          <Route element={<AuthLayout />}>
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+          </Route>
         </Route>
 
         <Route element={<ProtectedRoute />}>

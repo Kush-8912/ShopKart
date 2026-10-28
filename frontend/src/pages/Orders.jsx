@@ -1,10 +1,12 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { getOrders } from '../services/order.service.js'
+import { usePageTitle } from '../hooks/usePageTitle.js'
 import Navbar from '../components/Navbar.jsx'
 import OrderCard from '../components/OrderCard.jsx'
 
 function Orders() {
+  usePageTitle('Orders')
   const [orders, setOrders] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)

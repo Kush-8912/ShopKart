@@ -28,7 +28,7 @@ function CheckoutForm({ form, errors, disabled, onChange }) {
               maxLength={field.maxLength}
               aria-invalid={Boolean(error)}
               aria-describedby={error ? errorId : undefined}
-              className={`${inputClass} ${error ? 'border-red-500/60 focus:border-red-400' : 'border-zinc-800 focus:border-zinc-600'}`}
+              className={`${inputClass} ${error ? 'border-red-500/60 focus:border-red-400' : 'border-zinc-800 focus:border-brand-400 focus:ring-2 focus:ring-brand-400/20'}`}
             />
             {error && (
               <p id={errorId} className="text-xs text-red-400 ml-1">{error}</p>

@@ -1,10 +1,12 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { getWishlist, removeFromWishlist } from '../services/wishlist.service.js'
+import { usePageTitle } from '../hooks/usePageTitle.js'
 import Navbar from '../components/Navbar.jsx'
 import WishlistCard from '../components/WishlistCard.jsx'
 
 function Wishlist() {
+  usePageTitle('Wishlist')
   const [wishlist, setWishlist] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)

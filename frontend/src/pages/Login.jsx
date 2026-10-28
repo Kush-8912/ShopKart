@@ -1,11 +1,16 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { api } from '../services/api.js'
+import { usePageTitle } from '../hooks/usePageTitle.js'
+import { AuthField, AuthPage, SubmitButton } from '../components/AuthLayout.jsx'
 
 function Login() {
+  usePageTitle('Log in')
   const navigate = useNavigate()
+  // Set by Register after a successful sign-up, so this page can say what just happened
+  const registeredEmail = useLocation().state?.registeredEmail || ''
 
-  const [form, setForm] = useState({ email: '', password: '' })
+  const [form, setForm] = useState({ email: registeredEmail, password: '' })
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
@@ -18,7 +23,7 @@ function Login() {
     setError('')
 
     if (!form.email || !form.password) {
-      setError('All fields are mandatory')
+      setError('Please enter your email and password.')
       return
     }
 
@@ -28,9 +33,9 @@ function Login() {
       navigate('/home')
     } catch (err) {
       if (err.response?.status === 401) {
-        setError('Invalid Credentials')
+        setError('Incorrect email or password. Please try again.')
       } else {
-        setError(err.response?.data?.message || 'Something went wrong')
+        setError(err.response?.data?.message || 'Something went wrong. Please try again.')
       }
     } finally {
       setLoading(false)
@@ -38,61 +43,70 @@ function Login() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-zinc-950 text-zinc-100 px-4">
-      <div className="w-full max-w-sm space-y-8 bg-zinc-900/50 border border-zinc-800/80 p-8 rounded-2xl shadow-2xl backdrop-blur-xl">
-        <div className="text-center space-y-2">
-          <h1 className="text-2xl font-semibold tracking-tight">Login to ShopKart</h1>
-          <p className="text-sm text-zinc-400">Welcome back, continue shopping.</p>
-        </div>
-
-        <form className="space-y-4" onSubmit={handleSubmit}>
-          <div className="space-y-1">
-            <label className="text-xs font-medium text-zinc-300 ml-1">Email</label>
-            <input
-              type="email"
-              name="email"
-              placeholder="john@gmail.com"
-              value={form.email}
-              onChange={handleChange}
-              className="w-full px-3.5 py-2.5 bg-zinc-950 border border-zinc-800 rounded-xl text-sm text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-zinc-600 transition-colors"
-            />
-          </div>
-
-          <div className="space-y-1">
-            <label className="text-xs font-medium text-zinc-300 ml-1">Password</label>
-            <input
-              type="password"
-              name="password"
-              placeholder="••••••••"
-              value={form.password}
-              onChange={handleChange}
-              className="w-full px-3.5 py-2.5 bg-zinc-950 border border-zinc-800 rounded-xl text-sm text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-zinc-600 transition-colors"
-            />
-          </div>
-
-          {error && (
-            <p className="text-sm text-red-400 bg-red-500/10 border border-red-500/30 rounded-lg px-3 py-2">
-              {error}
-            </p>
-          )}
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full py-2.5 bg-zinc-100 hover:bg-white disabled:opacity-60 text-zinc-950 font-medium rounded-xl text-sm transition-colors mt-2"
-          >
-            {loading ? 'Logging in...' : 'Login'}
-          </button>
-        </form>
-
-        <div className="text-center text-xs text-zinc-400">
-          Don't have an account?{' '}
-          <Link to="/register" className="text-zinc-100 font-medium hover:underline">
-            Register
+    <AuthPage
+      heading={registeredEmail ? 'Now log in to your new account' : 'Log in to your account'}
+      description={
+        registeredEmail
+          ? 'Use the email and password you just signed up with.'
+          : 'Enter the email and password you used when you signed up.'
+      }
+      steps={
+        registeredEmail
+          ? [
+              { label: 'Create account', status: 'done' },
+              { label: 'Log in', status: 'current' }
+            ]
+          : null
+      }
+      footer={
+        <>
+          New to ShopKart?{' '}
+          <Link to="/register" className="text-brand-300 font-medium hover:underline">
+            Create an account
           </Link>
-        </div>
-      </div>
-    </div>
+        </>
+      }
+    >
+      {registeredEmail && (
+        <p role="status" className="text-sm text-emerald-300 bg-emerald-500/10 border border-emerald-500/30 rounded-lg px-3 py-2">
+          Account created for <span className="font-medium">{registeredEmail}</span>.
+        </p>
+      )}
+
+      <form className="space-y-4" onSubmit={handleSubmit}>
+        <AuthField
+          label="Email"
+          type="email"
+          name="email"
+          placeholder="you@example.com"
+          autoComplete="email"
+          autoFocus={!registeredEmail}
+          value={form.email}
+          onChange={handleChange}
+        />
+
+        <AuthField
+          label="Password"
+          type="password"
+          name="password"
+          placeholder="Your password"
+          autoComplete="current-password"
+          autoFocus={Boolean(registeredEmail)}
+          value={form.password}
+          onChange={handleChange}
+        />
+
+        {error && (
+          <p role="alert" className="text-sm text-red-400 bg-red-500/10 border border-red-500/30 rounded-lg px-3 py-2">
+            {error}
+          </p>
+        )}
+
+        <SubmitButton loading={loading} loadingLabel="Logging in...">
+          Log in
+        </SubmitButton>
+      </form>
+    </AuthPage>
   )
 }
 

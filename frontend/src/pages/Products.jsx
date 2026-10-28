@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { getProducts } from '../services/product.service.js'
 import { getWishlist } from '../services/wishlist.service.js'
+import { usePageTitle } from '../hooks/usePageTitle.js'
 import Navbar from '../components/Navbar.jsx'
 import SearchBar from '../components/SearchBar.jsx'
 import ProductCard from '../components/ProductCard.jsx'
 
 function Products() {
+  usePageTitle('Products')
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -109,8 +111,12 @@ function Products() {
 
       <div className="max-w-7xl mx-auto px-4 py-10 space-y-8">
         <div className="space-y-1">
-          <h1 className="text-2xl font-semibold tracking-tight">Products</h1>
-          <p className="text-sm text-zinc-400">Browse the ShopKart catalogue.</p>
+          <h1 className="text-2xl font-semibold tracking-tight">{category || 'All products'}</h1>
+          <p className="text-sm text-zinc-400">
+            {loading || error
+              ? 'Search, filter by category or sort by price.'
+              : `${products.length} ${products.length === 1 ? 'product' : 'products'}${search ? ` matching "${search}"` : ''}`}
+          </p>
         </div>
 
         <SearchBar

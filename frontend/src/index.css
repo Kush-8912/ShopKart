@@ -1,5 +1,38 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  /* ShopKart accent: logo, focus rings, highlights */
+  --color-brand-200: #dcdcff;
+  --color-brand-300: #c0c1ff;
+  --color-brand-400: #a1a2fb;
+  --color-brand-500: #8081f2;
+  --color-brand-600: #6263d9;
+}
+
+html {
+  color-scheme: dark;
+}
+
 body {
   margin: 0;
+  /* Matches the pages, so overscroll never flashes white */
+  background-color: var(--color-zinc-950);
+  -webkit-font-smoothing: antialiased;
+}
+
+@theme {
+  --animate-fade-in: fade-in 0.3s ease-out both;
+
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: none; }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in {
+    animation: none;
+  }
 }

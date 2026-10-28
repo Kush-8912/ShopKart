@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { getProductById } from '../services/product.service.js'
 import { formatPrice, getStockStatus } from '../utils/format.js'
+import { usePageTitle } from '../hooks/usePageTitle.js'
 import Navbar from '../components/Navbar.jsx'
 import AddToCartButton from '../components/AddToCartButton.jsx'
 
@@ -11,6 +12,7 @@ function ProductDetails() {
   const [product, setProduct] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+  usePageTitle(product?.name || 'Product')
 
   useEffect(() => {
     let ignore = false

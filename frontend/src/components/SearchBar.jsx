@@ -1,4 +1,4 @@
-const CATEGORIES = ['Electronics', 'Fashion', 'Books', 'Home']
+import { CATEGORIES } from '../utils/catalog.js'
 
 // Values match the backend's ?sort= options; '' means the default (newest first)
 const SORT_OPTIONS = [
@@ -8,7 +8,7 @@ const SORT_OPTIONS = [
 ]
 
 const selectClass =
-  'sm:w-48 px-3.5 py-2.5 bg-zinc-950 border border-zinc-800 rounded-xl text-sm text-zinc-100 focus:outline-none focus:border-zinc-600 transition-colors'
+  'sm:w-48 px-3.5 py-2.5 bg-zinc-950 border border-zinc-800 rounded-xl text-sm text-zinc-100 focus:outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-400/20 transition-colors'
 
 function SearchBar({ search, category, sort, onSearchChange, onCategoryChange, onSortChange }) {
   return (
@@ -18,7 +18,7 @@ function SearchBar({ search, category, sort, onSearchChange, onCategoryChange, o
         placeholder="Search products..."
         value={search}
         onChange={(e) => onSearchChange(e.target.value)}
-        className="flex-1 px-3.5 py-2.5 bg-zinc-950 border border-zinc-800 rounded-xl text-sm text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-zinc-600 transition-colors"
+        className="flex-1 px-3.5 py-2.5 bg-zinc-950 border border-zinc-800 rounded-xl text-sm text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-400/20 transition-colors"
       />
 
       <select
