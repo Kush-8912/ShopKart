@@ -13,6 +13,63 @@ A full-stack e-commerce web app: browse products, keep a wishlist, manage a cart
 - **Checkout & payments** – shipping address validation and Razorpay Checkout. The order total is always calculated on the server, and the payment signature is verified (HMAC-SHA256) before an order is marked paid. Stock is reduced and the cart cleared only after a verified payment.
 - **Orders** – order history, order details and an order-success page. Prices are snapshotted at purchase time.
 
+## Screenshots
+
+### Sign up and log in
+Login and signup share one screen with a sliding tab. Signup shows a two-step guide (create account, then log in).
+
+<table>
+  <tr>
+    <td><img src="docs/screenshots/01-login.png" alt="Login page" /></td>
+    <td><img src="docs/screenshots/02-signup.png" alt="Signup page with step indicator" /></td>
+  </tr>
+</table>
+
+### Home and products
+The home page has quick links, categories and new arrivals. The product list supports search, category filter and price sorting. Once an item is in the cart, its button becomes a quantity stepper.
+
+<table>
+  <tr>
+    <td><img src="docs/screenshots/03-home.png" alt="Home page" /></td>
+    <td><img src="docs/screenshots/04-products.png" alt="Product listing with search, filters and quantity steppers" /></td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/05-product-details.png" alt="Product details page" /></td>
+    <td><img src="docs/screenshots/06-wishlist.png" alt="Wishlist page" /></td>
+  </tr>
+</table>
+
+### Cart, checkout and payment
+Cart quantities are checked against live stock. Checkout validates the shipping address, and payment runs through Razorpay Checkout in test mode.
+
+<table>
+  <tr>
+    <td><img src="docs/screenshots/07-cart.png" alt="Cart with order summary" /></td>
+    <td><img src="docs/screenshots/08-checkout.png" alt="Checkout with shipping form and order summary" /></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><img src="docs/screenshots/09-razorpay.png" alt="Razorpay test checkout" width="70%" /></td>
+  </tr>
+</table>
+
+### Orders
+After the payment signature is verified, the order is confirmed, the cart is emptied, and the order shows up in My Orders with a status tracker.
+
+<table>
+  <tr>
+    <td><img src="docs/screenshots/10-order-success.png" alt="Order placed successfully" /></td>
+    <td><img src="docs/screenshots/11-orders.png" alt="My Orders with status tracker" /></td>
+  </tr>
+</table>
+
+### On a phone
+
+<p align="center">
+  <img src="docs/screenshots/12-mobile-home.png" alt="Home page on a phone" width="260" />
+  &nbsp;&nbsp;
+  <img src="docs/screenshots/12-mobile-products.png" alt="Products page on a phone" width="260" />
+</p>
+
 ## Tech Stack
 
 | Layer    | Technology |
@@ -34,6 +91,8 @@ SHOPKART/
 │   ├── routes/         # Express routers
 │   ├── utils/          # Token generation, address validation, product seeder
 │   └── index.js        # App entry point
+├── docs/
+│   └── screenshots/    # Images used in this README
 └── frontend/
     └── src/
         ├── components/ # Reusable UI components
