@@ -6,12 +6,32 @@ A full-stack e-commerce web app: browse products, keep a wishlist, manage a cart
 
 ## Features
 
-- **Authentication** – register, login, logout and change password. JWT is stored in an `httpOnly` cookie; passwords are hashed with bcrypt.
-- **Products** – listing with search, category filter and sorting (newest, price low→high, price high→low), plus a product details page.
-- **Wishlist** – add, remove and toggle products.
-- **Cart** – add items, change quantity, remove items. Quantities are checked against live stock on the server.
-- **Checkout & payments** – shipping address validation and Razorpay Checkout. The order total is always calculated on the server, and the payment signature is verified (HMAC-SHA256) before an order is marked paid. Stock is reduced and the cart cleared only after a verified payment.
-- **Orders** – order history, order details and an order-success page. Prices are snapshotted at purchase time.
+- **Authentication**
+  - Register, log in and log out. Changing the password is also supported through the API.
+  - The login token (JWT) is stored in an `httpOnly` cookie, and passwords are hashed with bcrypt.
+  - Login and signup share one screen with sliding tabs, a short intro to the store and a step guide (create account → log in). After signing up, the login page confirms the new account and fills in the email.
+- **Home page** – a welcome message, shortcuts to products, wishlist, cart and orders (with live cart totals), shop-by-category tiles, new arrivals and a "how ordering works" guide.
+- **Products**
+  - Listing with search, category filter and sorting (newest, price low→high, price high→low).
+  - A product details page, with stock status shown on every product.
+- **Wishlist**
+  - Add, remove or toggle products with clear saving, saved and error states.
+  - The wishlist is saved to your account.
+- **Cart**
+  - "Add to Cart" turns into a − / + quantity stepper on product cards and the product page. At quantity 1 the minus becomes a remove button.
+  - Quantities are checked against live stock on the server.
+  - The navbar, product cards and the cart page share one cart state, so they always agree.
+- **Checkout & payments**
+  - Shipping address validation and Razorpay Checkout (test mode).
+  - The order total is always calculated on the server.
+  - The payment signature is verified (HMAC-SHA256) before an order is marked paid. Stock is reduced and the cart cleared only after a verified payment.
+- **Orders**
+  - Order history, order details and an order-success page, each with a status tracker (Placed → Confirmed → Shipped → Delivered).
+  - Prices are saved at purchase time.
+- **Navigation & design**
+  - A navbar that stays on screen with live wishlist and cart counts and a highlight that slides to the current page.
+  - Pages fade in, and the browser tab shows the current page title.
+  - A dark theme that works on phones as well as desktops.
 
 ## Screenshots
 
