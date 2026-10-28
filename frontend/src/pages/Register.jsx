@@ -78,7 +78,7 @@ function Register() {
     >
       <form className="space-y-4" onSubmit={handleSubmit}>
         <AuthField
-          label="Full name"
+          label="Full Name"
           name="fullName"
           placeholder="Aarav Sharma"
           autoComplete="name"
@@ -98,18 +98,6 @@ function Register() {
         />
 
         <AuthField
-          label="Phone number"
-          type="tel"
-          name="phone"
-          placeholder="9876543210"
-          autoComplete="tel"
-          inputMode="tel"
-          hint="10-digit mobile number. We'll prefill it at checkout."
-          value={form.phone}
-          onChange={handleChange}
-        />
-
-        <AuthField
           label="Password"
           type="password"
           name="password"
@@ -120,6 +108,18 @@ function Register() {
           onChange={handleChange}
         />
 
+        <AuthField
+          label="Phone Number"
+          type="tel"
+          name="phone"
+          placeholder="9876543210"
+          autoComplete="tel"
+          inputMode="tel"
+          hint="10-digit mobile number. We'll prefill it at checkout."
+          value={form.phone}
+          onChange={handleChange}
+        />
+
         {error && (
           <p role="alert" className="text-sm text-red-400 bg-red-500/10 border border-red-500/30 rounded-lg px-3 py-2">
             {error}
@@ -127,7 +127,7 @@ function Register() {
         )}
 
         <SubmitButton loading={loading} loadingLabel="Creating account...">
-          Create account
+          Create Account
         </SubmitButton>
       </form>
     </AuthPage>

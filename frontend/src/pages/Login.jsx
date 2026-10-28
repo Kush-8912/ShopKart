@@ -33,7 +33,7 @@ function Login() {
       navigate('/home')
     } catch (err) {
       if (err.response?.status === 401) {
-        setError('Incorrect email or password. Please try again.')
+        setError('Invalid Credentials')
       } else {
         setError(err.response?.data?.message || 'Something went wrong. Please try again.')
       }

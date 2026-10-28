@@ -14,10 +14,16 @@ const LINKS = [
   { to: '/orders', label: 'Orders', icon: PackageIcon }
 ]
 
+// Always shown once known (including 0), e.g. "Cart (0)" right after an order is placed
 function CountBadge({ count }) {
-  if (!count) return null
+  if (count === null || count === undefined) return null
   return (
-    <span className="min-w-5 h-5 px-1.5 grid place-items-center rounded-full bg-brand-400 text-zinc-950 text-[11px] font-semibold tabular-nums">
+    <span
+      aria-label={`(${count})`}
+      className={`min-w-5 h-5 px-1.5 grid place-items-center rounded-full text-[11px] font-semibold tabular-nums transition-colors ${
+        count > 0 ? 'bg-brand-400 text-zinc-950' : 'bg-zinc-800 text-zinc-400'
+      }`}
+    >
       {count > 99 ? '99+' : count}
     </span>
   )
@@ -92,7 +98,7 @@ function Navbar({ customer }) {
 
   const counts = {
     '/wishlist': wishlistCount,
-    '/cart': !cartLoading && !cartError ? totalUnits : 0
+    '/cart': !cartLoading && !cartError ? totalUnits : null
   }
   const firstName = customer?.fullName?.split(' ')[0]
 
